@@ -1,0 +1,77 @@
+.splashscreen {
+
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:3;
+
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items : center;
+
+  background-image: url('../img/back.jpg');
+
+  // misc
+  pointer-events: none;
+  user-select: none;
+    
+  .baseline {
+      margin-top:50px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size:1.5em;
+      color:white;
+  }
+  
+  img {
+    max-height: 150px;
+    height: 100%;
+  }
+
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+#preloader_3{
+    position:relative;
+    margin : 50px 0 0 -50px;
+}
+#preloader_3:before{
+    width:20px;
+    height:20px;
+    border-radius:20px;
+    content:'';
+    position:absolute;
+    background:white;
+    animation: preloader_3_before 1.5s infinite ease-in-out;
+}
+ 
+#preloader_3:after{
+    width:20px;
+    height:20px;
+    border-radius:20px;
+    content:'';
+    position:absolute;
+    background:white;
+    left:22px;
+    animation: preloader_3_after 1.5s infinite ease-in-out;
+}
+ 
+@keyframes preloader_3_before {
+    0% {transform: translateX(0px) rotate(0deg)}
+    50% {transform: translateX(90px) scale(1.4) rotate(260deg); background:white;border-radius:0px;}
+      100% {transform: translateX(0px) rotate(0deg)}
+}
+@keyframes preloader_3_after {
+    0% {transform: translateX(0px)}
+    50% {transform: translateX(-90px) scale(1.4) rotate(-260deg);background:white;border-radius:0px;}
+    100% {transform: translateX(0px)}
+}
