@@ -8,6 +8,8 @@ var Preloader = (function () {
         this._loader.onFinish = this._onFinish.bind(this);
     }
     Preloader.prototype.loadAssets = function () {
+        this._addMesh('scene');
+        this._addMesh('viking');
         this._loader.load();
     };
     Preloader.prototype._onFinish = function () {
@@ -23,10 +25,13 @@ var Preloader = (function () {
         task.onSuccess = this._addMeshAssetToGame.bind(this);
     };
     Preloader.prototype._addMeshAssetToGame = function (t) {
+        this._game.assets[t.name] = [];
         console.group();
         for (var _i = 0, _a = t.loadedMeshes; _i < _a.length; _i++) {
             var m = _a[_i];
-            m.isPickable = true;
+            m.setEnabled(false);
+            m.isPickable = true; // TODO FIX THIS IN MAX
+            this._game.assets[t.name].push(m);
             console.log("%c Loaded : " + m.name, 'background: #333; color: #bada55');
         }
         console.log("%c Finished : " + t.name, 'background: #333; color: #bada55');

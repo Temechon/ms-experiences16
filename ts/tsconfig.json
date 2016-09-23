@@ -6,6 +6,7 @@
         "typings/babylon.d.ts",
         "Timer.ts",
         "Game.ts",
+        "Controller.ts",
         "Preloader.ts"
     ]
 }

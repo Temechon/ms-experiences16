@@ -19,6 +19,8 @@ class Preloader {
     
     public loadAssets() {
         
+        this._addMesh('scene');
+        this._addMesh('viking');
         this._loader.load();
     }
     
@@ -37,9 +39,12 @@ class Preloader {
     
     private _addMeshAssetToGame(t: BABYLON.MeshAssetTask) {
 
+        this._game.assets[t.name] = [];
         console.group();
         for (let m of t.loadedMeshes) {
-            m.isPickable = true;            
+            m.setEnabled(false);
+            m.isPickable = true; // TODO FIX THIS IN MAX
+            this._game.assets[t.name].push(m);     
             console.log(`%c Loaded : ${m.name}`, 'background: #333; color: #bada55');
         }
         console.log(`%c Finished : ${t.name}`, 'background: #333; color: #bada55');
