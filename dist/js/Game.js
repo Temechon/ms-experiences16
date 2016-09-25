@@ -35,17 +35,12 @@ var Game = (function () {
         this.scene = new BABYLON.Scene(this.engine);
         var camera = new BABYLON.ArcRotateCamera('', 1.11, 1.18, 800, new BABYLON.Vector3(0, 0, 0), this.scene);
         camera.attachControl(this.engine.getRenderingCanvas());
-        var light = new BABYLON.HemisphericLight('', new BABYLON.Vector3(0, 1, 0), this.scene);
-        light.intensity = 0.7;
-        var skybox = BABYLON.Mesh.CreateBox("skybox", 1000.0, this.scene);
-        var skyboxMaterial = new BABYLON.StandardMaterial("skybox", this.scene);
-        skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/textures/sky/TropicalSunnyDay", this.scene);
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-        skyboxMaterial.disableLighting = true;
-        skybox.material = skyboxMaterial;
+        camera.wheelPrecision *= 50;
+        var light = new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(0, 1, 0), this.scene);
+        light.intensity *= 0.9;
+        var globalLight = new BABYLON.HemisphericLight('globalHemisphericLight', new BABYLON.Vector3(-1, -1, 0), this.scene);
+        // background
+        new BABYLON.Layer('background', 'assets/textures/background2.jpg', this.scene, true);
         // Load assets
         var loader = new Preloader(this);
         loader.callback = this.run.bind(this);
@@ -67,6 +62,9 @@ var Game = (function () {
     Game.prototype._init = function () {
         this.scene.debugLayer.show();
         this.createAsset('scene');
+        this.scene.getMeshByName('waterground').dispose();
+        this.scene.getMeshByName('water').dispose();
+        this.scene.getMeshByName('water2').dispose();
         var viking = this.createAsset('viking')[0];
         // Scale it down - TEMPORARILY
         viking.scaling.scaleInPlace(0.25);
@@ -87,21 +85,19 @@ var Game = (function () {
         BABYLON.Animation.CreateAndStartAnimation('camera.beta', this.scene.activeCamera, 'beta', 60, time, 1.18 * 2, 1.20, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
         BABYLON.Animation.CreateAndStartAnimation('camera.radius', this.scene.activeCamera, 'radius', 60, time, 800, 5, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
         // Shadows
-        var dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-0.5, -1, 0), this.scene);
+        var dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1, -1, 0), this.scene);
         dir.position.copyFrom(dir.direction.scale(-10));
-        var shadowGenerator = new BABYLON.ShadowGenerator(1024, dir);
+        var shadowGenerator = new BABYLON.ShadowGenerator(512, dir);
         shadowGenerator.useBlurVarianceShadowMap = true;
+        shadowGenerator.setDarkness(0.5);
         for (var _i = 0, _a = this.scene.meshes; _i < _a.length; _i++) {
             var mesh = _a[_i];
-            if (mesh.name.indexOf('ground') != -1) {
+            if (mesh.name.indexOf('Hexa') != -1) {
                 mesh.receiveShadows = true;
+                this.scene.getLightByName('hemisphericLight').excludedMeshes.push(mesh);
             }
             else {
-                if (mesh.material) {
-                    var st = mesh.material;
-                    st.emissiveTexture = st.diffuseTexture;
-                    shadowGenerator.getShadowMap().renderList.push(mesh);
-                }
+                shadowGenerator.getShadowMap().renderList.push(mesh);
             }
         }
     };
@@ -109,7 +105,6 @@ var Game = (function () {
         var _this = this;
         this.scene.onPointerDown = function (evt, pr) {
             if (pr.hit) {
-                var box = BABYLON.MeshBuilder.CreateBox('box', { size: 0.05 }, _this.scene);
                 var destination = pr.pickedPoint.clone();
                 destination.y = 0;
                 _this._controller.addDestination(destination);
