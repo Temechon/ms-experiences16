@@ -56,10 +56,10 @@ class Game {
 
         let camera = new BABYLON.ArcRotateCamera('', 1.11, 1.18, 800, new BABYLON.Vector3(0, 0, 0), this.scene);
         camera.attachControl(this.engine.getRenderingCanvas());
-        camera.wheelPrecision *= 50;
+        // camera.wheelPrecision *= 50;
         let light = new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(0, 1, 0), this.scene); 
-        light.intensity *= 0.9;         
-        let globalLight = new BABYLON.HemisphericLight('globalHemisphericLight', new BABYLON.Vector3(-1, -1, 0), this.scene); 
+        // light.intensity *= 0.9;         
+        // let globalLight = new BABYLON.HemisphericLight('globalHemisphericLight', new BABYLON.Vector3(-1, -1, 0), this.scene); 
 
         // background
         new BABYLON.Layer('background', 'assets/textures/background2.jpg', this.scene, true);
@@ -93,19 +93,16 @@ class Game {
         this.scene.debugLayer.show();
 
         this.createAsset('scene');
-        this.scene.getMeshByName('waterground').dispose();
-        this.scene.getMeshByName('water').dispose();
-        this.scene.getMeshByName('water2').dispose();
         
         let viking = this.createAsset('viking')[0];
         // Scale it down - TEMPORARILY
-        viking.scaling.scaleInPlace(0.25);
+        // viking.scaling.scaleInPlace(0.75);
         viking.position.y += 0.35;
 
         // add controller
         this._controller = new Controller(viking);
-        this._controller.speed = 0.01;
-        this._controller.animationSpeedMultiplier = 1.6; 
+        this._controller.speed = 0.1;9
+        this._controller.animationSpeedMultiplier = 2.9; 
         this._controller.addAnimation('idle', 0, 320);
         this._controller.addAnimation('walk', 323, 364);
         this._controller.addAnimation('dance', 367, 738);
@@ -149,21 +146,21 @@ class Game {
 
                 
         // Shadows
-        let dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1, -1, 0), this.scene);
-        dir.position.copyFrom(dir.direction.scale(-10));
+        // let dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1, -1, 0), this.scene);
+        // dir.position.copyFrom(dir.direction.scale(-10));
                 
-        var shadowGenerator = new BABYLON.ShadowGenerator(512, dir);
-        shadowGenerator.useBlurVarianceShadowMap = true;
-        shadowGenerator.setDarkness(0.5);
+        // var shadowGenerator = new BABYLON.ShadowGenerator(512, dir);
+        // shadowGenerator.useBlurVarianceShadowMap = true;
+        // shadowGenerator.setDarkness(0.5);
     
-        for (let mesh of this.scene.meshes) {
-            if (mesh.name.indexOf('Hexa') != -1) {
-                mesh.receiveShadows = true;
-                this.scene.getLightByName('hemisphericLight').excludedMeshes.push(mesh);
-            }else { 
-                shadowGenerator.getShadowMap().renderList.push(mesh);
-            }
-        }
+        // for (let mesh of this.scene.meshes) {
+        //     if (mesh.name.indexOf('hexa') != -1) {
+        //         mesh.receiveShadows = true;
+        //         this.scene.getLightByName('hemisphericLight').excludedMeshes.push(mesh);
+        //     }else { 
+        //         shadowGenerator.getShadowMap().renderList.push(mesh);
+        //     }
+        // }
     }
 
     private _runGame() {

@@ -1,0 +1,14 @@
+﻿J:\LIBRARIES\ms-experiences16\resources\t$m$p$$$\scene.max
+J:\LIBRARIES\ms-experiences16\resources\t$m$p$$$\MAXFILES.TXT
+J:\Program Files\Autodesk\3ds Max Design 2015\Maps\glare\glare_streaks_star_camera_filter.tif
+C:\Users\Julian\Desktop\73631_Low-poly_One_Texture_Village\Building texture.png
+J:\LIBRARIES\bursion\resources\item_texture.jpg
+C:\Users\Julian\Desktop\25065_Eat_Sheep_Collection__Farm\farm_haybale_stump_shovel_wheelbarrow_rake_D.jpg
+J:\LIBRARIES\bursion\resources\sol_texture.jpg
+J:\LIBRARIES\bursion\resources\sol_watah2.jpg
+J:\LIBRARIES\bursion\resources\whale.jpg
+J:\LIBRARIES\bursion\resources\enclos.jpg
+J:\LIBRARIES\bursion\resources\sol_plage.jpg
+J:\LIBRARIES\bursion\resources\sol_watah1_2.jpg
+C:\Users\Julian\Desktop\hutte.jpg
+J:\LIBRARIES\Dungeon\assets\shroom_color2.png
