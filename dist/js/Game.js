@@ -35,9 +35,9 @@ var Game = (function () {
         this.scene = new BABYLON.Scene(this.engine);
         var camera = new BABYLON.ArcRotateCamera('', 1.11, 1.18, 800, new BABYLON.Vector3(0, 0, 0), this.scene);
         camera.attachControl(this.engine.getRenderingCanvas());
-        // camera.wheelPrecision *= 50;
+        camera.wheelPrecision *= 10;
         var light = new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(0, 1, 0), this.scene);
-        // light.intensity *= 0.9;         
+        light.intensity *= 1.5;
         // let globalLight = new BABYLON.HemisphericLight('globalHemisphericLight', new BABYLON.Vector3(-1, -1, 0), this.scene); 
         // background
         new BABYLON.Layer('background', 'assets/textures/background2.jpg', this.scene, true);
@@ -81,21 +81,7 @@ var Game = (function () {
         var time = 60 * 3;
         BABYLON.Animation.CreateAndStartAnimation('camera.alpha', this.scene.activeCamera, 'alpha', 60, time, 1.11 * 2, -1, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
         BABYLON.Animation.CreateAndStartAnimation('camera.beta', this.scene.activeCamera, 'beta', 60, time, 1.18 * 2, 1.20, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
-        BABYLON.Animation.CreateAndStartAnimation('camera.radius', this.scene.activeCamera, 'radius', 60, time, 800, 5, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
-        // Shadows
-        // let dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1, -1, 0), this.scene);
-        // dir.position.copyFrom(dir.direction.scale(-10));
-        // var shadowGenerator = new BABYLON.ShadowGenerator(512, dir);
-        // shadowGenerator.useBlurVarianceShadowMap = true;
-        // shadowGenerator.setDarkness(0.5);
-        // for (let mesh of this.scene.meshes) {
-        //     if (mesh.name.indexOf('hexa') != -1) {
-        //         mesh.receiveShadows = true;
-        //         this.scene.getLightByName('hemisphericLight').excludedMeshes.push(mesh);
-        //     }else { 
-        //         shadowGenerator.getShadowMap().renderList.push(mesh);
-        //     }
-        // }
+        BABYLON.Animation.CreateAndStartAnimation('camera.radius', this.scene.activeCamera, 'radius', 60, time, 800, 50, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
     };
     Game.prototype._runGame = function () {
         var _this = this;
@@ -109,7 +95,7 @@ var Game = (function () {
         };
         window.addEventListener('keydown', function (evt) {
             if (evt.keyCode == 32) {
-                _this._controller.playAnimation('dance', false);
+                _this._controller.playAnimation('dance', true);
             }
         });
     };

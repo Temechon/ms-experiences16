@@ -56,9 +56,9 @@ class Game {
 
         let camera = new BABYLON.ArcRotateCamera('', 1.11, 1.18, 800, new BABYLON.Vector3(0, 0, 0), this.scene);
         camera.attachControl(this.engine.getRenderingCanvas());
-        // camera.wheelPrecision *= 50;
+        camera.wheelPrecision *= 10;
         let light = new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(0, 1, 0), this.scene); 
-        // light.intensity *= 0.9;         
+        light.intensity *= 1.5;         
         // let globalLight = new BABYLON.HemisphericLight('globalHemisphericLight', new BABYLON.Vector3(-1, -1, 0), this.scene); 
 
         // background
@@ -140,27 +140,9 @@ class Game {
                 60,
                 time,
                 800,
-                5,
+                50,
                 BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
                 easing);
-
-                
-        // Shadows
-        // let dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1, -1, 0), this.scene);
-        // dir.position.copyFrom(dir.direction.scale(-10));
-                
-        // var shadowGenerator = new BABYLON.ShadowGenerator(512, dir);
-        // shadowGenerator.useBlurVarianceShadowMap = true;
-        // shadowGenerator.setDarkness(0.5);
-    
-        // for (let mesh of this.scene.meshes) {
-        //     if (mesh.name.indexOf('hexa') != -1) {
-        //         mesh.receiveShadows = true;
-        //         this.scene.getLightByName('hemisphericLight').excludedMeshes.push(mesh);
-        //     }else { 
-        //         shadowGenerator.getShadowMap().renderList.push(mesh);
-        //     }
-        // }
     }
 
     private _runGame() {
@@ -176,7 +158,7 @@ class Game {
 
         window.addEventListener('keydown', (evt) => {
             if (evt.keyCode == 32) {
-                this._controller.playAnimation('dance', false);
+                this._controller.playAnimation('dance', true);
             }
         })
     }
