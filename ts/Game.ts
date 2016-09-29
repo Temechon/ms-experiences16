@@ -90,7 +90,7 @@ class Game {
 
 
     private _init () {
-        this.scene.debugLayer.show();
+        // this.scene.debugLayer.show();
 
         this.createAsset('scene');
         
@@ -107,6 +107,8 @@ class Game {
         this._controller.addAnimation('walk', 323, 364);
         this._controller.addAnimation('dance', 367, 738);
         this._controller.playAnimation('idle', true);
+
+        this._initSmoke();
 
         // Animate the camera at start
         var easing = new BABYLON.QuinticEase();
@@ -161,5 +163,60 @@ class Game {
                 this._controller.playAnimation('dance', true);
             }
         })
+    }
+
+    private _initSmoke () {
+        
+        // Init smoke
+        var particleSystem = new BABYLON.ParticleSystem("psys", 2000, this.scene);
+
+        //Texture of each particle
+        particleSystem.particleTexture = new BABYLON.Texture("assets/textures/smoke.png", this.scene);
+
+        // Where the particles come from
+        particleSystem.emitter = this.scene.getMeshByName('smoke'); 
+        particleSystem.minEmitBox = new BABYLON.Vector3(1, 0.5, 1);
+        particleSystem.maxEmitBox = new BABYLON.Vector3(-1, 0.5, -1);
+
+        // Colors of all particles
+        particleSystem.color1 = new BABYLON.Color4(0.8823529411764706, 0.8823529411764706, 0.8823529411764706, 0.5);
+        particleSystem.color2 = new BABYLON.Color4(1, 0.9882352941176471, 0.9607843137254902, 0.6);
+        particleSystem.colorDead = new BABYLON.Color4(0.9137254901960784, 0.9137254901960784, 0.9137254901960784, 0.1);
+
+        // Mask applied on all particles
+        particleSystem.textureMask = new BABYLON.Color4(1, 1, 1, 0.99);
+
+        // Size of each particle (random between...
+        particleSystem.minSize = 2;
+        particleSystem.maxSize = 4;
+
+        // Life time of each particle (random between...
+        particleSystem.minLifeTime = 0.2;
+        particleSystem.maxLifeTime = 0.3;
+
+        // Emission rate
+        particleSystem.emitRate = 100;
+
+        // Blend mode : BLENDMODE_ONEONE (without alpha), or BLENDMODE_STANDARD (with alpha)
+        particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_STANDARD;
+
+        // Set the gravity of all particles
+        particleSystem.gravity = new BABYLON.Vector3(40, -40, 0.5);
+
+        // Direction of each particle after it has been emitted
+        particleSystem.direction1 = new BABYLON.Vector3(0, 1, 0);
+        particleSystem.direction2 = new BABYLON.Vector3(0, 10, 0);
+
+        // Angular speed, in radians
+        particleSystem.minAngularSpeed = -10;
+        particleSystem.maxAngularSpeed = 10;
+
+        // Speed
+        particleSystem.minEmitPower = 5;
+        particleSystem.maxEmitPower = 5;
+        particleSystem.updateSpeed = 0.001;
+
+        // Start the particle system
+        particleSystem.start();
     }
 }

@@ -7,6 +7,7 @@
         "Timer.ts",
         "Game.ts",
         "Controller.ts",
-        "Preloader.ts"
+        "Preloader.ts",
+        "index1.ts"
     ]
 }
