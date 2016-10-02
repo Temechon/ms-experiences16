@@ -61,10 +61,9 @@ var Game = (function () {
     };
     Game.prototype._init = function () {
         // this.scene.debugLayer.show();
+        var music = new BABYLON.Sound("ambient", "assets/music/ambient.wav", this.scene, null, { loop: true, autoplay: true });
         this.createAsset('scene');
         var viking = this.createAsset('viking')[0];
-        // Scale it down - TEMPORARILY
-        // viking.scaling.scaleInPlace(0.75);
         viking.position.y += 0.35;
         // add controller
         this._controller = new Controller(viking);
@@ -83,6 +82,7 @@ var Game = (function () {
         BABYLON.Animation.CreateAndStartAnimation('camera.alpha', this.scene.activeCamera, 'alpha', 60, time, 1.11 * 2, -1, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
         BABYLON.Animation.CreateAndStartAnimation('camera.beta', this.scene.activeCamera, 'beta', 60, time, 1.18 * 2, 1.20, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
         BABYLON.Animation.CreateAndStartAnimation('camera.radius', this.scene.activeCamera, 'radius', 60, time, 800, 50, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easing);
+        new BABYLON.Sound("psy", "assets/music/psy.ogg", this.scene, null, { loop: false, autoplay: false });
     };
     Game.prototype._runGame = function () {
         var _this = this;
@@ -96,6 +96,7 @@ var Game = (function () {
         };
         window.addEventListener('keydown', function (evt) {
             if (evt.keyCode == 32) {
+                _this.scene.getSoundByName('psy').play();
                 _this._controller.playAnimation('dance', true);
             }
         });

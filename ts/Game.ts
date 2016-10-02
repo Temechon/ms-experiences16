@@ -92,11 +92,11 @@ class Game {
     private _init () {
         // this.scene.debugLayer.show();
 
+        var music = new BABYLON.Sound("ambient", "assets/music/ambient.wav", this.scene, null, { loop: true, autoplay: true });
+        
         this.createAsset('scene');
         
         let viking = this.createAsset('viking')[0];
-        // Scale it down - TEMPORARILY
-        // viking.scaling.scaleInPlace(0.75);
         viking.position.y += 0.35;
 
         // add controller
@@ -145,6 +145,9 @@ class Game {
                 50,
                 BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
                 easing);
+                
+                
+        new BABYLON.Sound("psy", "assets/music/psy.ogg", this.scene, null, { loop: false, autoplay: false });
     }
 
     private _runGame() {
@@ -160,6 +163,7 @@ class Game {
 
         window.addEventListener('keydown', (evt) => {
             if (evt.keyCode == 32) {
+                this.scene.getSoundByName('psy').play();
                 this._controller.playAnimation('dance', true);
             }
         })

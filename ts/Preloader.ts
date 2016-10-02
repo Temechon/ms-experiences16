@@ -43,7 +43,7 @@ class Preloader {
         console.group();
         for (let m of t.loadedMeshes) {
             m.setEnabled(false);
-            m.isPickable = true; // TODO FIX THIS IN MAX
+            m.isPickable = true; 
             this._game.assets[t.name].push(m);     
             console.log(`%c Loaded : ${m.name}`, 'background: #333; color: #bada55');
         }

@@ -30,7 +30,7 @@ var Preloader = (function () {
         for (var _i = 0, _a = t.loadedMeshes; _i < _a.length; _i++) {
             var m = _a[_i];
             m.setEnabled(false);
-            m.isPickable = true; // TODO FIX THIS IN MAX
+            m.isPickable = true;
             this._game.assets[t.name].push(m);
             console.log("%c Loaded : " + m.name, 'background: #333; color: #bada55');
         }
