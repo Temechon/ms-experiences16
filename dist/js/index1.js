@@ -7,5 +7,8 @@ window.addEventListener('DOMContentLoaded', function () {
     var box = BABYLON.Mesh.CreateBox("box", 1, scene);
     camera.attachControl(engine.getRenderingCanvas());
     engine.runRenderLoop(function () { scene.render(); });
+    var mat = new BABYLON.StandardMaterial('red', scene);
+    mat.diffuseColor = BABYLON.Color3.Red();
+    box.material = mat;
 });
 //# sourceMappingURL=index1.js.map

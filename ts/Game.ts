@@ -1,5 +1,3 @@
-declare var Grid: any;
-
 class Game {
 
     private engine: BABYLON.Engine;

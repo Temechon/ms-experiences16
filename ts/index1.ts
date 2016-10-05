@@ -11,4 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     engine.runRenderLoop(() => { scene.render(); });
 
+    var mat = new BABYLON.StandardMaterial('red', scene);
+    mat.diffuseColor = BABYLON.Color3.Red();
+    box.material=mat;
+    
+
 });
